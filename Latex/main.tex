@@ -1,0 +1,1104 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{booktabs}
+\geometry{margin=2.5cm}
+
+% Configuración de listings para MATLAB (para futuros usos)
+\usepackage{listings}
+\usepackage{xcolor}
+\lstset{
+  language=Matlab,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{green!50!black},
+  stringstyle=\color{red},
+  numbers=left,
+  numberstyle=\tiny,
+  frame=single,
+  breaklines=true
+}
+
+\title{Ejercicios de Variable Compleja en MATLAB}
+\author{Juan González \\ 20232025089
+\\
+Yesid González \\ 20232025073}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% Tabla de contenidos
+\tableofcontents
+\newpage
+
+\section{Introducción}
+El presente documento tiene como objetivo recopilar y desarrollar una serie de ejercicios relacionados con la teoría de variable compleja, utilizando como herramienta principal el software \texttt{MATLAB}.  
+La variable compleja constituye un campo fundamental dentro del análisis matemático, con aplicaciones en la ingeniería, la física y diversas áreas de la ciencia. En este trabajo se abordan problemas clásicos como operaciones con números complejos, representaciones en el plano, transformaciones conformes, verificación de las ecuaciones de Cauchy-Riemann, así como el cálculo de integrales de contorno y límites.
+
+El uso de \texttt{MATLAB} permite no solo realizar los cálculos simbólicos y numéricos de manera eficiente, sino también visualizar gráficamente mapeos y funciones complejas, lo cual enriquece la comprensión de los conceptos teóricos.
+
+\newpage
+
+% =============================================================================
+% EJERCICIOS 1-18
+% =============================================================================
+\section{Ejercicios 1-18}
+
+\subsection{Ejercicio 1: Operaciones básicas con complejos}
+\subsubsection{Enunciado}
+Dados \(z_1=3+2i\) y \(z_2=1-5i\), calcular:
+\[
+a)\; z_1+z_2, \quad b)\; z_1 \cdot z_2, \quad c)\; \frac{z_1}{z_2}.
+\]
+
+\subsubsection{Solución matemática}
+\begin{align*}
+a)\;z_1+z_2 &= 4-3i, \\
+b)\;z_1 z_2 &= 13-13i, \\
+c)\;\frac{z_1}{z_2} &= \frac{-7+17i}{26} = -\tfrac{7}{26}+\tfrac{17}{26}i.
+\end{align*}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 2: Forma polar de complejo}
+\subsubsection{Enunciado}
+Calcule la forma polar de \(z = -2 + 2i\).
+
+\subsubsection{Solución matemática}
+\[
+r = |z| = \sqrt{(-2)^2 + (2)^2} = 2\sqrt{2}, \quad
+\theta = \frac{3\pi}{4}.
+\]
+Por tanto,
+\[
+z = 2\sqrt{2}\,(\cos\tfrac{3\pi}{4} + i\sin\tfrac{3\pi}{4})
+= 2\sqrt{2}\,e^{i\frac{3\pi}{4}}.
+\]
+
+\subsubsection{Resultado}
+\[
+r = 2\sqrt{2}, \quad \theta = \tfrac{3\pi}{4} \; (135^\circ).
+\]
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 3: Raíces quintas de la unidad}
+\subsubsection{Enunciado}
+Grafique las raíces quintas de la unidad.
+
+\subsubsection{Solución matemática}
+Las raíces quintas de la unidad son
+\[
+z_k = e^{2\pi i k / 5}, \quad k=0,1,2,3,4,
+\]
+las cuales se distribuyen uniformemente en la circunferencia unitaria del plano complejo.
+
+\subsubsection{Gráfica}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{figuras/raices_quintas.png}
+  \caption{Representación de las cinco raíces de la unidad sobre la circunferencia unitaria}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 4: Ecuaciones de Cauchy-Riemann}
+\subsubsection{Enunciado}
+Verifique las ecuaciones de Cauchy–Riemann para la función \( f(z)=e^{z} \).
+
+\subsubsection{Solución matemática}
+Escribiendo \(z=x+iy\):
+\[
+f(z)=e^{x+iy}=e^{x}(\cos y+i\sin y),
+\quad u=e^{x}\cos y,\; v=e^{x}\sin y.
+\]
+Cálculo directo de derivadas:
+\[
+u_x=e^{x}\cos y,\; u_y=-e^{x}\sin y,\; v_x=e^{x}\sin y,\; v_y=e^{x}\cos y.
+\]
+Como \(u_x=v_y\) y \(u_y=-v_x\) para todo \(x,y\), \(f\) cumple Cauchy–Riemann y por tanto es analítica en \(\mathbb{C}\).
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 5: Integral de línea}
+\subsubsection{Enunciado}
+Calcule \(\displaystyle \int_{C} z^{2}\,dz\), donde \(C\) es el segmento desde \(0\) hasta \(1+i\).
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/ej5_matlab.png}
+  \caption{Resultado de la integral de línea \(\int_{C} z^{2}\,dz\) mostrado en MATLAB}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 6: Serie de Taylor}
+\subsubsection{Enunciado}
+Desarrolle en serie de Taylor alrededor de \(z=0\) la función
+\[
+f(z)=\frac{1}{1+z}.
+\]
+
+\subsubsection{Solución matemática}
+Para \(|z|<1\) se tiene la expansión geométrica
+\[
+\frac{1}{1+z}=\sum_{n=0}^{\infty}(-1)^n z^n = 1 - z + z^2 - z^3 + \cdots.
+\]
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/output_N6.png}
+  \caption{Desarrollo en serie de Taylor en MATLAB}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 7: Mapeo \(w=z^2\)}
+\subsubsection{Enunciado}
+Visualice el mapeo \(w=z^{2}\) para una cuadrícula en el plano \(z\).
+
+\subsubsection{Solución matemática}
+La transformación \(w = z^2\) es una función analítica que mapea el plano complejo \(z = x + iy\) al plano \(w = u + iv\) mediante:
+\[
+u = x^2 - y^2, \quad v = 2xy.
+\]
+Esta transformación duplica los ángulos en el origen y convierte líneas rectas en parábolas.
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/output_N7.png}
+  \caption{Mapeo \(w=z^2\) para una cuadrícula en el plano \(z\)}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 8: Límite complejo}
+\subsubsection{Enunciado}
+Calcule \(\lim_{n\to\infty}\left(\frac{n+1}{n}\right)^{ni}\).
+
+\subsubsection{Solución matemática}
+\[
+\lim_{n\to\infty}\left(\frac{n+1}{n}\right)^{ni} = e^{i} = \cos(1) + i\sin(1)
+\]
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/output_N8.png}
+  \caption{Cálculo del límite complejo en MATLAB}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 9: Curvas de nivel}
+\subsubsection{Enunciado}
+Grafique las curvas de nivel de \(\operatorname{Re}(e^{1/z})\).
+
+\subsubsection{Solución matemática}
+\[
+\operatorname{Re}(e^{1/z}) = e^{\frac{x}{x^2 + y^2}} \cos\left(\frac{y}{x^2 + y^2}\right)
+\]
+donde \(z = x + iy\). Las curvas de nivel muestran líneas de valor constante de esta función.
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{figuras/output_N9.png}
+  \caption{Curvas de nivel de \(\operatorname{Re}(e^{1/z})\)}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 10: Raíces de ecuación}
+\subsubsection{Enunciado}
+Resuelva la ecuación \(z^{4}=16i\).
+
+\subsubsection{Solución matemática}
+Expresando \(16i\) en forma polar:
+\[
+16i = 16e^{i\pi/2} = 16e^{i(\pi/2 + 2k\pi)}
+\]
+Las raíces cuartas son:
+\[
+z_k = 2e^{i(\pi/8 + k\pi/2)}, \quad k=0,1,2,3
+\]
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/output_N10.png}
+  \caption{Raíces de \(z^{4}=16i\) en MATLAB}
+\end{figure}
+
+% Continúa con los ejercicios 11-18 en el mismo formato...
+% Por brevedad, muestro solo la estructura
+
+\subsection{Ejercicio 11: Integral de \(e^{i\theta}\)}
+\subsubsection{Enunciado}
+Calcule la integral \(\int_{0}^{2\pi}e^{i\theta}d\theta\).
+
+\subsubsection{Solución matemática}
+\[
+\int_{0}^{2\pi}e^{i\theta}d\theta = \int_{0}^{2\pi}(\cos\theta + i\sin\theta)d\theta = 0
+\]
+ya que las integrales de \(\cos\theta\) y \(\sin\theta\) sobre un periodo completo son cero.
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/output_N11.png}
+  \caption{Integral de \(e^{i\theta}\) en MATLAB}
+\end{figure}
+
+\subsection{Ejercicio 12: Integral por residuos}
+\subsubsection{Enunciado}
+Evalúe \(\int_{C}\frac{\cos z}{z}dz\) donde \(C\) es el círculo \(|z|=1\).
+
+\subsubsection{Solución matemática}
+Por el teorema de los residuos, el residuo en \(z=0\) es:
+\[
+\operatorname{Res}(f,0) = \lim_{z\to 0} z\cdot\frac{\cos z}{z} = \cos(0) = 1
+\]
+Por tanto:
+\[
+\int_{C}\frac{\cos z}{z}dz = 2\pi i \cdot \operatorname{Res}(f,0) = 2\pi i
+\]
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/output_N12.png}
+  \caption{Integral de \(\frac{\cos z}{z}\) por residuos en MATLAB}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 13: Derivada del logaritmo}
+\subsubsection{Enunciado}
+Derivada de \(f(z)=\log(z)\).
+
+\subsubsection{Solución matemática}
+Para la rama principal del logaritmo complejo:
+\[
+\frac{d}{dz}\log(z) = \frac{1}{z}
+\]
+válido para \(z \neq 0\) y evitando el corte de rama.
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/output_N13.png}
+  \caption{Derivada de \(\log(z)\) en MATLAB}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 14: Serie de Taylor de \(e^z\)}
+\subsubsection{Enunciado}
+Calcule \(\sum_{n=0}^{\infty}\frac{z^{n}}{n!}\) y verifique que es \(e^{z}\).
+
+\subsubsection{Solución matemática}
+La serie:
+\[
+\sum_{n=0}^{\infty}\frac{z^{n}}{n!} = 1 + z + \frac{z^2}{2!} + \frac{z^3}{3!} + \cdots
+\]
+es la definición de la función exponencial compleja \(e^{z}\), que es analítica en todo el plano complejo.
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/output_N14.png}
+  \caption{Serie de Taylor de \(e^z\) en MATLAB}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 15: Raíces de polinomio}
+\subsubsection{Enunciado}
+Encuentre y grafique las raíces de \(z^{3}+z^{2}+z+1=0\).
+
+\subsubsection{Solución matemática}
+Factorizando:
+\[
+z^3 + z^2 + z + 1 = (z+1)(z^2 + 1) = (z+1)(z+i)(z-i)
+\]
+Las raíces son: \(z = -1, i, -i\).
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/output_N15.png}
+  \caption{Raíces de \(z^{3}+z^{2}+z+1=0\) en MATLAB}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 16: Mapeo \(w=\sin(z)\)}
+\subsubsection{Enunciado}
+Mapeo de \(w=\sin(z)\) para \(z=x+iy\) con \(x\in[-\pi,\pi],y\in[0,1]\).
+
+\subsubsection{Solución matemática}
+Usando la identidad:
+\[
+\sin(z) = \sin(x)\cosh(y) + i\cos(x)\sinh(y)
+\]
+El mapeo transforma rectángulos en el plano \(z\) en regiones elípticas en el plano \(w\).
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/output_N16.png}
+  \caption{Mapeo \(w=\sin(z)\) en MATLAB}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 17: Integral con residuos}
+\subsubsection{Enunciado}
+Calcule \(\int_{C}\frac{dz}{z^{2}+4}\) donde \(C\) es el círculo \(|z-i|=2\).
+
+\subsubsection{Solución matemática}
+Los polos están en \(z = \pm 2i\). Solo \(z = 2i\) está dentro del contorno.
+\[
+\operatorname{Res}(f,2i) = \lim_{z\to 2i} (z-2i)\cdot\frac{1}{(z-2i)(z+2i)} = \frac{1}{4i}
+\]
+\[
+\int_{C}\frac{dz}{z^{2}+4} = 2\pi i \cdot \frac{1}{4i} = \frac{\pi}{2}
+\]
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/output_N17.png}
+  \caption{Integral de \(\frac{1}{z^{2}+4}\) en MATLAB}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 18: Gráfica de \(f(z)=z^2\)}
+\subsubsection{Enunciado}
+Grafique la función \(f(z)=z^{2}\) en el dominio \([-2,2]\times[-2,2]\).
+
+\subsubsection{Solución matemática}
+La función \(f(z)=z^2\) mapea el plano complejo según:
+\[
+(x + iy)^2 = (x^2 - y^2) + i(2xy)
+\]
+Se pueden visualizar las partes real e imaginaria, o el módulo y argumento.
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/output_N18.png}
+  \caption{Gráfica de \(f(z)=z^2\) en MATLAB}
+\end{figure}
+
+\newpage
+
+% =============================================================================
+% EJERCICIOS 19-37
+% =============================================================================
+\section{Ejercicios 19-37}
+
+\subsection{Ejercicio 19: Derivada de función exponencial}
+\subsubsection{Enunciado}
+Calcule la derivada de \(f(z)=3ie^{z}\).
+
+\subsubsection{Solución matemática}
+\[
+f'(z) = \frac{d}{dz}(3ie^{z}) = 3i \cdot e^{z}
+\]
+
+\subsubsection{Resultado}
+\[
+f'(z) = 3ie^{z}
+\]
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/output_N19.png}
+  \caption{Derivada de \(f(z)=3ie^{z}\) en MATLAB}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 20: Integral de línea}
+\subsubsection{Enunciado}
+Evalue \(\int_{C}zdz\) donde \(C\) es el segmento de recta de \(0\) a \(1+i\).
+
+\subsubsection{Solución matemática}
+Parametrizando el segmento: \(z(t)=t(1+i)\), \(t\in[0,1]\). Entonces:
+\[
+\int_{C}zdz = \int_{0}^{1} t(1+i) \cdot (1+i)dt = (1+i)^2 \int_{0}^{1} tdt = (2i) \cdot \frac{1}{2} = i
+\]
+
+\subsubsection{Resultado}
+\[
+\int_{C}zdz = i
+\]
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/output_N20.png}
+  \caption{Integral de línea en MATLAB}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 21: Curvas de nivel}
+\subsubsection{Enunciado}
+Grafique las curvas de nivel de Re\((\sin(z))\).
+
+\subsubsection{Solución matemática}
+Para \(z = x + iy\), tenemos:
+\[
+\sin(z) = \sin(x)\cosh(y) + i\cos(x)\sinh(y)
+\]
+Por lo tanto:
+\[
+\text{Re}(\sin(z)) = \sin(x)\cosh(y)
+\]
+Las curvas de nivel son de la forma \(\sin(x)\cosh(y) = c\), donde \(c\) es constante.
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/output_N21.png}
+  \caption{Curvas de nivel de Re\((\sin(z))\)}
+\end{figure}
+
+% ... Continúa con ejercicios 22-37
+
+\subsection{Ejercicio 22: Cauchy-Riemann para \(z^3\)}
+\subsubsection{Enunciado}
+Verifique las ecuaciones de Cauchy-Riemann para \(f(z)=z^{3}\).
+
+\subsubsection{Solución matemática}
+Sea \(z = x + iy\), entonces:
+\[
+f(z) = (x + iy)^3 = (x^3 - 3xy^2) + i(3x^2y - y^3)
+\]
+Identificamos:
+\[
+u(x,y) = x^3 - 3xy^2, \quad v(x,y) = 3x^2y - y^3
+\]
+Calculamos las derivadas parciales:
+\[
+u_x = 3x^2 - 3y^2, \quad u_y = -6xy, \quad v_x = 6xy, \quad v_y = 3x^2 - 3y^2
+\]
+Se cumple \(u_x = v_y\) y \(u_y = -v_x\), por tanto \(f(z)\) es analítica.
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/output_N22.png}
+  \caption{Verificación de Cauchy-Riemann en MATLAB}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 23: Límite fundamental}
+\subsubsection{Enunciado}
+Calcule \(\lim_{z\to 0}\)\(\frac{\sin z}{z}\).
+
+\subsubsection{Solución matemática}
+Usando el desarrollo en serie de Taylor:
+\[
+\sin z = z - \frac{z^3}{3!} + \frac{z^5}{5!} - \cdots
+\]
+Entonces:
+\[
+\frac{\sin z}{z} = 1 - \frac{z^2}{3!} + \frac{z^4}{5!} - \cdots
+\]
+Por lo tanto:
+\[
+\lim_{z\to 0} \frac{\sin z}{z} = 1
+\]
+
+\subsubsection{Resultado}
+\[
+\lim_{z\to 0} \frac{\sin z}{z} = 1
+\]
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/output_N23.png}
+  \caption{Límite fundamental en MATLAB}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 24: Mapeo \(w=e^z\)}
+\subsubsection{Enunciado}
+Grafique el mapeo \(w=e^{z}\) para \(z=x+iy\) con \(x\in[0,1],y\in[0,2\pi]\).
+
+\subsubsection{Solución matemática}
+Para \(z = x + iy\), la función exponencial es:
+\[
+w = e^{z} = e^{x}e^{iy} = e^{x}(\cos y + i\sin y)
+\]
+El mapeo transforma:
+- Líneas verticales (\(x\) constante) en círculos de radio \(e^{x}\)
+- Líneas horizontales (\(y\) constante) en rayos con ángulo \(y\)
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/output_N24.png}
+  \caption{Mapeo \(w=e^z\) en MATLAB}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 25: Integral de \(1/z\)}
+\subsubsection{Enunciado}
+Calcule la integral \(\int_{C}\frac{1}{z}dz\) donde \(C\) es el circulo \(|z|=1\).
+
+\subsubsection{Solución matemática}
+Parametrizando el círculo: \(z = e^{i\theta}\), \(\theta \in [0,2\pi]\), \(dz = ie^{i\theta}d\theta\). Entonces:
+\[
+\int_{C}\frac{1}{z}dz = \int_{0}^{2\pi} \frac{1}{e^{i\theta}} \cdot ie^{i\theta}d\theta = \int_{0}^{2\pi} i d\theta = 2\pi i
+\]
+Por el teorema de los residuos, el residuo en \(z=0\) es 1, por lo que la integral es \(2\pi i\).
+
+\subsubsection{Resultado}
+\[
+\int_{C}\frac{1}{z}dz = 2\pi i
+\]
+
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 26: Logaritmo complejo}
+\subsubsection{Enunciado}
+Visualice la parte real e imaginaria de \(f(z)=\log(z)\).
+
+\subsubsection{Solución matemática}
+Para \(z = re^{i\theta}\), el logaritmo complejo es:
+\[
+\log(z) = \ln|z| + i(\theta + 2k\pi), \quad k \in \mathbb{Z}
+\]
+Para la rama principal (\(k=0\)):
+\[
+\text{Re}(\log(z)) = \ln r = \frac{1}{2}\ln(x^2 + y^2)
+\]
+\[
+\text{Im}(\log(z)) = \theta = \arctan\left(\frac{y}{x}\right)
+\]
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/output_N26.png}
+  \caption{Parte real e imaginaria de \(\log(z)\) en MATLAB}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 27: Derivada de función racional}
+\subsubsection{Enunciado}
+Calcule la derivada de \(f(z)=\frac{1}{z^{2}+1}\).
+
+\subsubsection{Solución matemática}
+Usando la regla del cociente:
+\[
+f'(z) = \frac{d}{dz}\left(\frac{1}{z^2+1}\right) = -\frac{2z}{(z^2+1)^2}
+\]
+
+\subsubsection{Resultado}
+\[
+f'(z) = -\frac{2z}{(z^2+1)^2}
+\]
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 28: Integral de \(\bar{z}\)}
+\subsubsection{Enunciado}
+Evalue \(\int_{C}\bar{z}dz\) donde \(C\) es el circulo \(|z|=2\).
+
+\subsubsection{Solución matemática}
+Parametrizando: \(z = 2e^{i\theta}\), \(\theta \in [0,2\pi]\), entonces \(\bar{z} = 2e^{-i\theta}\) y \(dz = 2ie^{i\theta}d\theta\). Luego:
+\[
+\int_{C}\bar{z}dz = \int_{0}^{2\pi} 2e^{-i\theta} \cdot 2ie^{i\theta}d\theta = \int_{0}^{2\pi} 4i d\theta = 8\pi i
+\]
+
+\subsubsection{Resultado}
+\[
+\int_{C}\bar{z}dz = 8\pi i
+\]
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 29: Curvas de nivel de \(|1/z|\)}
+\subsubsection{Enunciado}
+Grafique las curvas de nivel de \(|f(z)|\) para \(f(z)=\frac{1}{z}\).
+
+\subsubsection{Solución matemática}
+Para \(z = x + iy\), tenemos:
+\[
+f(z) = \frac{1}{z} = \frac{x}{x^2+y^2} - i\frac{y}{x^2+y^2}
+\]
+El módulo es:
+\[
+|f(z)| = \left|\frac{1}{z}\right| = \frac{1}{|z|} = \frac{1}{\sqrt{x^2+y^2}}
+\]
+Las curvas de nivel \(|f(z)| = c\) corresponden a círculos \(x^2+y^2 = \frac{1}{c^2}\).
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/output_N29.png}
+  \caption{Curvas de nivel de \(|1/z|\) en MATLAB}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 30: Límite por factorización}
+\subsubsection{Enunciado}
+Calcule \(\lim_{z\to i}\)\(\frac{z^{2}+1}{z-i}\).
+
+\subsubsection{Solución matemática}
+Factorizando el numerador:
+\[
+z^2 + 1 = (z - i)(z + i)
+\]
+Entonces:
+\[
+\frac{z^2+1}{z-i} = \frac{(z-i)(z+i)}{z-i} = z + i
+\]
+Por lo tanto:
+\[
+\lim_{z\to i} \frac{z^2+1}{z-i} = i + i = 2i
+\]
+
+\subsubsection{Resultado}
+\[
+\lim_{z\to i} \frac{z^2+1}{z-i} = 2i
+\]
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 31: Analiticidad de \(\bar{z}\)}
+\subsubsection{Enunciado}
+Verifique si \(f(z)=\bar{z}\) es analítica.
+
+\subsubsection{Solución matemática}
+Sea \(z = x + iy\), entonces:
+\[
+f(z) = \bar{z} = x - iy
+\]
+Identificamos:
+\[
+u(x,y) = x, \quad v(x,y) = -y
+\]
+Calculamos las derivadas parciales:
+\[
+u_x = 1, \quad u_y = 0
+\]
+\[
+v_x = 0, \quad v_y = -1
+\]
+Verificamos Cauchy-Riemann:
+\[
+u_x = 1 \neq v_y = -1
+\]
+\[
+u_y = 0 = -v_x = 0
+\]
+Solo se cumple la segunda ecuación. Por tanto, \(f(z)=\bar{z}\) no es analítica.
+
+\subsubsection{Resultado}
+\(f(z)=\bar{z}\) no es analítica.
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 32: Integral sobre parábola}
+\subsubsection{Enunciado}
+Calcule \(\int_{C}(z^{2}+1)dz\) donde \(C\) es el arco de parabola \(y=x^{2}\) de \(0\) a \(1+i\).
+
+\subsubsection{Solución matemática}
+Parametrizando la parábola: \(z(t) = t + it^2\), \(t \in [0,1]\). Entonces:
+\[
+dz = (1 + 2it)dt
+\]
+\[
+\int_{C}(z^{2}+1)dz = \int_{0}^{1} [(t + it^2)^2 + 1](1 + 2it)dt
+\]
+\[
+= \int_{0}^{1} [t^2 + 2it^3 - t^4 + 1](1 + 2it)dt
+\]
+Resolviendo la integral se obtiene el resultado.
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/output_N32.png}
+  \caption{Integral sobre parábola en MATLAB}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 33: Transformación de Joukowski}
+\subsubsection{Enunciado}
+Grafique la transformacion \(w=z+\frac{1}{z}\).
+
+\subsubsection{Solución matemática}
+La transformación \(w = z + \frac{1}{z}\) es conocida como transformación de Joukowski. Para \(z = re^{i\theta}\):
+\[
+w = re^{i\theta} + \frac{1}{r}e^{-i\theta} = \left(r + \frac{1}{r}\right)\cos\theta + i\left(r - \frac{1}{r}\right)\sin\theta
+\]
+Transforma círculos en elipses y líneas rectas en hipérbolas.
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/output_N33.png}
+  \caption{Transformación de Joukowski en MATLAB}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 34: Derivada de \(\sin(z^2)\)}
+\subsubsection{Enunciado}
+Calcule la derivada de \(f(z)=\sin(z^{2})\).
+
+\subsubsection{Solución matemática}
+Usando la regla de la cadena:
+\[
+f'(z) = \frac{d}{dz}[\sin(z^2)] = \cos(z^2) \cdot \frac{d}{dz}(z^2) = 2z\cos(z^2)
+\]
+
+\subsubsection{Resultado}
+\[
+f'(z) = 2z\cos(z^2)
+\]
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 35: Integral de \(1/z^2\)}
+\subsubsection{Enunciado}
+Calcule \(\int_{C}\frac{dz}{z^{2}}\) donde \(C\) es el circulo \(|z-1|=1\).
+
+\subsubsection{Solución matemática}
+La función \(f(z) = \frac{1}{z^2}\) tiene un polo de orden 2 en \(z=0\). El círculo \(|z-1|=1\) no encierra al polo \(z=0\) (distancia del centro al polo es 1, igual al radio). Como la función es analítica dentro y sobre el contorno:
+\[
+\int_{C}\frac{dz}{z^{2}} = 0
+\]
+por el teorema de Cauchy-Goursat.
+
+\subsubsection{Resultado}
+\[
+\int_{C}\frac{dz}{z^{2}} = 0
+\]
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 36: Función \(e^{1/z}\)}
+\subsubsection{Enunciado}
+Grafique la parte real e imaginaria de \(f(z)=e^{1/z}\).
+
+\subsubsection{Solución matemática}
+Para \(z = x + iy\), tenemos:
+\[
+e^{1/z} = e^{\frac{x}{x^2+y^2} - i\frac{y}{x^2+y^2}} = e^{\frac{x}{x^2+y^2}} \left[\cos\left(\frac{y}{x^2+y^2}\right) - i\sin\left(\frac{y}{x^2+y^2}\right)\right]
+\]
+Por tanto:
+\[
+\text{Re}(e^{1/z}) = e^{\frac{x}{x^2+y^2}} \cos\left(\frac{y}{x^2+y^2}\right)
+\]
+\[
+\text{Im}(e^{1/z}) = -e^{\frac{x}{x^2+y^2}} \sin\left(\frac{y}{x^2+y^2}\right)
+\]
+
+\subsubsection{Resultado en MATLAB}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/output_N36.png}
+  \caption{Parte real e imaginaria de \(e^{1/z}\) en MATLAB}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsection{Ejercicio 37: Límite en infinito}
+\subsubsection{Enunciado}
+Calcule \(\lim_{z\rightarrow\infty}\)\(\frac{z^{2}+1}{2z^{2}-3z}\).
+
+\subsubsection{Solución matemática}
+Dividiendo numerador y denominador por \(z^2\):
+\[
+\lim_{z\rightarrow\infty} \frac{z^{2}+1}{2z^{2}-3z} = \lim_{z\rightarrow\infty} \frac{1 + \frac{1}{z^2}}{2 - \frac{3}{z}} = \frac{1 + 0}{2 - 0} = \frac{1}{2}
+\]
+
+\subsubsection{Resultado}
+\[
+\lim_{z\rightarrow\infty} \frac{z^{2}+1}{2z^{2}-3z} = \frac{1}{2}
+\]
+
+\newpage
+
+% =============================================================================
+% ANEXOS
+% =============================================================================
+\section{Anexos}
+
+\subsection{Anexo A: Códigos MATLAB - Ejercicios 1-18}
+
+\subsubsection{Ejercicio 1 - Operaciones básicas con complejos}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N1_code.png}
+  \caption{Código MATLAB para el Ejercicio 1}
+\end{figure}
+
+\subsubsection{Ejercicio 2 - Forma polar de complejo}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N2_code.png}
+  \caption{Código MATLAB para el Ejercicio 2}
+\end{figure}
+
+\subsubsection{Ejercicio 3 - Raíces quintas de la unidad}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N3_code.png}
+  \caption{Código MATLAB para el Ejercicio 3}
+\end{figure}
+
+\subsubsection{Ejercicio 4 - Ecuaciones de Cauchy-Riemann para $e^z$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N4_code.png}
+  \caption{Código MATLAB para el Ejercicio 4}
+\end{figure}
+
+\subsubsection{Ejercicio 5 - Integral de línea de $z^2$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N5_code.png}
+  \caption{Código MATLAB para el Ejercicio 5}
+\end{figure}
+
+\subsubsection{Ejercicio 6 - Serie de Taylor de $1/(1+z)$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N6_code.png}
+  \caption{Código MATLAB para el Ejercicio 6}
+\end{figure}
+
+\subsubsection{Ejercicio 7 - Mapeo $w=z^2$ para cuadrícula}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N7_code.png}
+  \caption{Código MATLAB para el Ejercicio 7}
+\end{figure}
+
+\subsubsection{Ejercicio 8 - Límite complejo $((n+1)/n)^{ni}$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N8_code.png}
+  \caption{Código MATLAB para el Ejercicio 8}
+\end{figure}
+
+\subsubsection{Ejercicio 9 - Curvas de nivel de $\text{Re}(e^{1/z})$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N9_code.png}
+  \caption{Código MATLAB para el Ejercicio 9}
+\end{figure}
+
+\subsubsection{Ejercicio 10 - Raíces de $z^4 = 16i$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N10_code.png}
+  \caption{Código MATLAB para el Ejercicio 10}
+\end{figure}
+
+\subsubsection{Ejercicio 11 - Integral de $e^{i\theta}$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N11_code.png}
+  \caption{Código MATLAB para el Ejercicio 11}
+\end{figure}
+
+\subsubsection{Ejercicio 12 - Integral de $\cos(z)/z$ por residuos}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N12_code.png}
+  \caption{Código MATLAB para el Ejercicio 12}
+\end{figure}
+
+\subsubsection{Ejercicio 13 - Derivada de $\log(z)$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N13_code.png}
+  \caption{Código MATLAB para el Ejercicio 13}
+\end{figure}
+
+\subsubsection{Ejercicio 14 - Serie de Taylor de $e^z$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N14_code.png}
+  \caption{Código MATLAB para el Ejercicio 14}
+\end{figure}
+
+\subsubsection{Ejercicio 15 - Raíces de $z^3 + z^2 + z + 1 = 0$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N15_code.png}
+  \caption{Código MATLAB para el Ejercicio 15}
+\end{figure}
+
+\subsubsection{Ejercicio 16 - Mapeo $w=\sin(z)$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N16_code.png}
+  \caption{Código MATLAB para el Ejercicio 16}
+\end{figure}
+
+\subsubsection{Ejercicio 17 - Integral de $1/(z^2+4)$ por residuos}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N17_code.png}
+  \caption{Código MATLAB para el Ejercicio 17}
+\end{figure}
+
+\subsubsection{Ejercicio 18 - Gráfica de $f(z)=z^2$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N18_code.png}
+  \caption{Código MATLAB para el Ejercicio 18}
+\end{figure}
+
+% =============================================================================
+
+\newpage
+\subsection{Anexo B: Códigos MATLAB - Ejercicios 19-37}
+
+\subsubsection{Ejercicio 19 - Derivada de $f(z)=3ie^{z}$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N19_code.png}
+  \caption{Código MATLAB para el Ejercicio 19}
+\end{figure}
+
+\subsubsection{Ejercicio 20 - Integral de línea de $z$ sobre segmento}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N20_code.png}
+  \caption{Código MATLAB para el Ejercicio 20}
+\end{figure}
+
+\subsubsection{Ejercicio 21 - Curvas de nivel de $\text{Re}(\sin(z))$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N21_code.png}
+  \caption{Código MATLAB para el Ejercicio 21}
+\end{figure}
+
+\subsubsection{Ejercicio 22 - Cauchy-Riemann para $f(z)=z^3$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N22_code.png}
+  \caption{Código MATLAB para el Ejercicio 22}
+\end{figure}
+
+\subsubsection{Ejercicio 23 - Límite fundamental $\lim_{z\to 0} \frac{\sin z}{z}$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N23_code.png}
+  \caption{Código MATLAB para el Ejercicio 23}
+\end{figure}
+
+\subsubsection{Ejercicio 24 - Mapeo $w=e^z$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N24_code.png}
+  \caption{Código MATLAB para el Ejercicio 24}
+\end{figure}
+
+\subsubsection{Ejercicio 25 - Integral de $1/z$ alrededor de $|z|=1$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N25_code.png}
+  \caption{Código MATLAB para el Ejercicio 25}
+\end{figure}
+
+\subsubsection{Ejercicio 26 - Parte real e imaginaria de $\log(z)$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N26_code.png}
+  \caption{Código MATLAB para el Ejercicio 26}
+\end{figure}
+
+\subsubsection{Ejercicio 27 - Derivada de $f(z)=\frac{1}{z^2+1}$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N27_code.png}
+  \caption{Código MATLAB para el Ejercicio 27}
+\end{figure}
+
+\subsubsection{Ejercicio 28 - Integral de $\bar{z}$ alrededor de $|z|=2$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N28_code.png}
+  \caption{Código MATLAB para el Ejercicio 28}
+\end{figure}
+
+\subsubsection{Ejercicio 29 - Curvas de nivel de $|1/z|$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N29_code.png}
+  \caption{Código MATLAB para el Ejercicio 29}
+\end{figure}
+
+\subsubsection{Ejercicio 30 - Límite por factorización $\lim_{z\to i} \frac{z^2+1}{z-i}$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N30_code.png}
+  \caption{Código MATLAB para el Ejercicio 30}
+\end{figure}
+
+\subsubsection{Ejercicio 31 - Analiticidad de $f(z)=\bar{z}$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N31_code.png}
+  \caption{Código MATLAB para el Ejercicio 31}
+\end{figure}
+
+\subsubsection{Ejercicio 32 - Integral sobre parábola $y=x^2$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N32_code.png}
+  \caption{Código MATLAB para el Ejercicio 32}
+\end{figure}
+
+\subsubsection{Ejercicio 33 - Transformación de Joukowski $w=z+1/z$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N33_code.png}
+  \caption{Código MATLAB para el Ejercicio 33}
+\end{figure}
+
+\subsubsection{Ejercicio 34 - Derivada de $f(z)=\sin(z^2)$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N34_code.png}
+  \caption{Código MATLAB para el Ejercicio 34}
+\end{figure}
+
+\subsubsection{Ejercicio 35 - Integral de $1/z^2$ alrededor de $|z-1|=1$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N35_code.png}
+  \caption{Código MATLAB para el Ejercicio 35}
+\end{figure}
+
+\subsubsection{Ejercicio 36 - Parte real e imaginaria de $e^{1/z}$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N36_code.png}
+  \caption{Código MATLAB para el Ejercicio 36}
+\end{figure}
+
+\subsubsection{Ejercicio 37 - Límite en infinito $\lim_{z\to\infty} \frac{z^2+1}{2z^2-3z}$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{codigos/ejercicio_N37_code.png}
+  \caption{Código MATLAB para el Ejercicio 37}
+\end{figure}
+
+% =============================================================================
+
+\subsection{Notas sobre los códigos}
+
+\begin{itemize}
+\item Todos los códigos fueron desarrollados en MATLAB R2023a.
+\item Se utilizó el \texttt{Symbolic Math Toolbox} para los cálculos simbólicos.
+\item Los gráficos fueron generados con las funciones de visualización estándar de MATLAB.
+\item Las capturas muestran el código completo utilizado para cada ejercicio.
+\item Los códigos están optimizados para claridad y eficiencia computacional.
+\item La mayoria de codigos fueron proporcionados por repositorios.
+\end{itemize}
+
+\end{document}
